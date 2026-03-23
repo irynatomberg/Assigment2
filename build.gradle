@@ -1,9 +1,14 @@
 plugins {
     id 'java'
+    id 'jacoco'
 }
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
+
+jacoco {
+    toolVersion = "0.8.14"
+}
 
 repositories {
     mavenCentral()
@@ -17,4 +22,15 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    jacoco {
+        excludes = ["jdk.internal.*"]
+    }
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        html.required = true
+        xml.required = true
+    }
 }
